@@ -56,7 +56,7 @@ public class EtudiantDaoImp implements EtudiantDao{
 				pst = null;
 				pst = conn.prepareStatement("INSERT INTO info_accademique_v VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
 				pst.setDate(1, java.sql.Date.valueOf(e.getDateGraduation()));
-				pst.setString(2, e.getDateBac());
+				pst.setDate(2, java.sql.Date.valueOf(e.getDateBac()));
 				pst.setString(3, e.getFilBac());
 				pst.setInt(4, e.getMoyLicense());
 				pst.setInt(5, e.getMoyBac());
