@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Sign up</title>
     <link rel="stylesheet" href="css/auth-style.css">
     <link rel="stylesheet" href="css/generic-style.css">
@@ -27,7 +28,7 @@
         </div>
         <section class="wraper">
             <h1 class="title">Sign Up</h1>
-            <form action="addUser" class="" method="POST" autocomplete="off" enctype="multipart/form-data">
+            <form action="addUser" class="" method="post" autocomplete="off" enctype ="multipart/form-data">
                 <!-- error msg -->
                 <div class="error-div hidden"></div>
                 <!-- Info personnel -->

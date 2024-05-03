@@ -27,7 +27,7 @@
         </div>
         <section class="wraper">
             <h1 class="title">Sign In</h1>
-            <form action="" class="" method="post" autocomplete="off">
+            <form action="addUser" class="" method="post" autocomplete="off" >
                 <!-- Info personnel -->
                 <section class="form-up form-part-1 current">
 

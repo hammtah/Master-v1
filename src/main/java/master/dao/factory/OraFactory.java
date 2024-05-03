@@ -6,7 +6,7 @@ import java.sql.*;
 
 public class OraFactory {
 	public static final String driver="oracle.jdbc.driver.OracleDriver";
-	public static final String dbUrl="jdbc:oracle:thin:testpractice/Test123@//localhost:1521/xepdb1";
+	public static final String dbUrl="jdbc:oracle:thin:pfe/pfe123@//localhost:1521/xepdb1";
 
 
 public static Connection getConnection() throws SQLException{

@@ -56,14 +56,15 @@ function handlePrevBtn(){
         formParts[i].classList.remove("hidden");
     }
 }
-
 function checkInputs(i){
+	/*
     const inputs = document.querySelector(`.form-part-${i}`).querySelectorAll("input");
     for(inpt of inputs){
         console.log(inpt)
         console.log(inpt.validity.valid)
         if( !inpt.validity.valid || inpt.value.trim().length === 0 ) return false;
     }
+    */
     return true;
 }
 
