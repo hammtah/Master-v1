@@ -146,8 +146,8 @@
                                 <input type="date" name="date_premiere_inscription" id="date_premiere_inscription" class="input" placeholder="12 Feb 2000">
                             </div>
                             <div class="input-div">
-                                <label for="fil-license">FiliÃ¨re License</label>
-                                <input type="text" name="fil-license" id="fil-license" class="input" placeholder="SMI">
+                                <label for="date_bac">Date Bac</label>
+                                <input type="date" name="date_bac" id="date_bac" class="input" placeholder="">
                             </div>
                         </div>
 
@@ -156,6 +156,16 @@
                                 <label for="fil-bac">FiliÃ¨re Bac</label>
                                 <input type="text" name="fil-bac" id="fil-bac" class="input" placeholder="PC">
                             </div>
+                        </div>
+                        
+						<div class="info">
+                            <div class="input-div">
+                                <label for="fil-license">FiliÃ¨re License</label>
+                                <input type="text" name="fil-license" id="fil-license" class="input" placeholder="SMI">
+                            </div>
+                        </div>
+                        
+                        <div class="info">
                             <div class="input-div">
                                 <label for="moyenne_bac">Moyene Bac</label>
                                 <input type="number" name="moy-bac" id="moy-bac" class="input" placeholder="16.2">    
@@ -210,12 +220,30 @@
                                         <span class="upload-file-name"></span>
                                         <span class="upload-file-size"></span>
                                     </div>
-                                    <img src="img/icons/upload.svg" alt="upload"></div>
+                                    <img src="img/icons/upload.svg" alt="upload">
+                                </div>
                             </label>
                             <span class="docs-msg">Les documents doivent Ãªtre bien scannÃ©s et comportant: L'origine du BaccalaurÃ©at, L'origine du diplome, La carte d'identitÃ© national et les relevÃ©s de note.</span>
                         </div>
                     </section>
-
+				<!-- image input file -->
+				<section class="up-connection">
+                    <div class="up-connection-div input-div">
+                        <label for="photo">Veuillez Entrer Votre photo 
+                            <input type="file" name="photo" id="photo" class="input" placeholder="">
+                            <div class="upload-div input">
+                                <span class="upload-text" id="photo-text"> No file uploaded </span>
+                                <div class="upload-subdiv">
+                                    <span class="upload-file-name" id="photo-name"></span>
+                                    <span class="upload-file-size" id="photo-size"></span>
+                                </div>
+                                <img src="img/icons/upload.svg" alt="upload">
+                            </div>
+                        </label>
+                    </div>
+                </section>
+				
+                
                 </section>
                 <!--  -->
                 <!--  -->

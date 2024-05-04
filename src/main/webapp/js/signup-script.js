@@ -82,11 +82,19 @@ document.getElementById("docs").addEventListener("change",(e)=>{
     const selectedFile = e.target.files[0];
     const fileName = selectedFile.name;
     const fileSize = selectedFile.size;
-    document.querySelector(".upload-text").textContent ="";
-    document.querySelector(".upload-file-name").textContent = fileName;
-    document.querySelector(".upload-file-size").textContent = SizeConversion(fileSize);
-
+    document.getElementById("docs-text").textContent ="";
+    document.getElementById("docs-name").textContent = fileName;
+    document.getElementById("docs-size").textContent = SizeConversion(fileSize);
 })
+document.getElementById("photo").addEventListener("change",(e)=>{
+    const selectedFile = e.target.files[0];
+    const fileName = selectedFile.name;
+    const fileSize = selectedFile.size;
+    document.getElementById("photo-text").textContent ="";
+    document.getElementById("photo-name").textContent = fileName;
+    document.getElementById("photo-size").textContent = SizeConversion(fileSize);
+})
+
 
 // // convert the sizes
 function SizeConversion(sizeInBytes) {

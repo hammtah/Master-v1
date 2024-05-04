@@ -17,6 +17,8 @@ public class Etudiant {
 		String massar;
 		String dateBac;
 		String dateGraduation;
+		String datePremiereInscription;
+
 		Part photo;
 		Part docs;
 		String FilBac;
@@ -31,6 +33,41 @@ public class Etudiant {
 		int noteS5;
 		int noteS6;
 		
+		//constructor 
+	    public Etudiant() {
+	        // Initialize any default values if needed
+	    }
+	    
+	    public Etudiant(int id, String nom, String prenom, String dateNaissance, String sexe, String tel, String email, String password, String nationalite, String cin, String massar, String dateBac, String dateGraduation, String datePremiereInscription, Part photo, Part docs, String FilBac, int idFaculte, int idFilLicense, int moyBac, int moyLicense, int noteS1, int noteS2, int noteS3, int noteS4, int noteS5, int noteS6) {
+	        this.id = id;
+	        this.nom = nom;
+	        this.prenom = prenom;
+	        this.dateNaissance = dateNaissance;
+	        this.sexe = sexe;
+	        this.tel = tel;
+	        this.email = email;
+	        this.password = password;
+	        this.nationalite = nationalite;
+	        this.cin = cin;
+	        this.massar = massar;
+	        this.dateBac = dateBac;
+	        this.dateGraduation = dateGraduation;
+	        this.datePremiereInscription = datePremiereInscription;
+	        this.photo = photo;
+	        this.docs = docs;
+	        this.FilBac = FilBac;
+	        this.idFaculte = idFaculte;
+	        this.idFilLicense = idFilLicense;
+	        this.moyBac = moyBac;
+	        this.moyLicense = moyLicense;
+	        this.noteS1 = noteS1;
+	        this.noteS2 = noteS2;
+	        this.noteS3 = noteS3;
+	        this.noteS4 = noteS4;
+	        this.noteS5 = noteS5;
+	        this.noteS6 = noteS6;
+	    }
+	    
 		public int getId() {
 			return id;
 		}
@@ -120,6 +157,14 @@ public class Etudiant {
 		}
 		public void setDateBac(String dateBac) {
 			this.dateBac = dateBac;
+		}
+		
+		public String getDatePremiereInscription() {
+			return datePremiereInscription;
+		}
+
+		public void setDatePremiereInscription(String datePremiereInscription) {
+			this.datePremiereInscription = datePremiereInscription;
 		}
 		public int getIdFaculte() {
 			return idFaculte;

@@ -22,6 +22,7 @@ public class EtudiantDaoImp implements EtudiantDao{
 		try {
 			conn = OraFactory.getConnection();
 			conn.setAutoCommit(false);
+			//conn.setAutoCommit(true);
 		}catch(SQLException sqe) {}
 		
 		try {
@@ -37,10 +38,16 @@ public class EtudiantDaoImp implements EtudiantDao{
 			pst.setString(8, e.getNationalite());
 			pst.setString(9, e.getCin());
 			pst.setString(10, e.getMassar());
-
 			int rowsAffected1 = pst.executeUpdate() ;
-			if(rowsAffected1 < 0) {
+			System.out.println("rowsAffected1: " + rowsAffected1);
+			if(rowsAffected1 < 1) {
+				//closing connections
 				conn.rollback();
+				try {
+					if(conn != null ) conn.close();
+					if(pst != null ) pst.close();
+				}catch(SQLException sqe) {}
+				//returning false
 				return false;
 			}
 			//remplissage du tableau info académiques
@@ -50,8 +57,9 @@ public class EtudiantDaoImp implements EtudiantDao{
 				rs = st.executeQuery("SELECT etudiant_seq.CURRVAL FROM DUAL");
 				rs.next();
 				e.setId(rs.getInt(1));
+				System.out.println("id: " + e.getId());
 				//donnant des valeurs temporaires à l'id de faculté et l'id filLisence et l'id de filBac(cette phase est temporaire)
-				e.setFilBac("Sciences I."); e.setIdFilLicense(1); e.setIdFaculte(1);
+				e.setIdFilLicense(1); e.setIdFaculte(1);
 				//remplissage des info acad.
 				pst = null;
 				pst = conn.prepareStatement("INSERT INTO info_accademique_v VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");
@@ -78,12 +86,21 @@ public class EtudiantDaoImp implements EtudiantDao{
 				pst.setInt(16, e.getIdFaculte());
 
 				int rowsAffected2 = pst.executeUpdate() ;
-				if(rowsAffected2 < 0) {
+				//pst.executeUpdate() ;
+				if(rowsAffected2 < 1) {
 					conn.rollback();
+					//System.out.println("failed in step 2");
+					//closing connections
+					try {
+						if(conn != null ) conn.close();
+						if(pst != null ) pst.close();
+					}catch(SQLException sqe) {}
+					//returning false
 					return false;
 				}	
-				
+			//if all steps are done correctly
 			conn.commit();
+			//System.out.println("commited");
 			isAdded = true;
 			
 			//en cas d'échec d'insertion
