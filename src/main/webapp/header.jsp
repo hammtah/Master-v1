@@ -28,15 +28,18 @@
                 </a>
             </div>
             <ul class="links">
-                <a href="" class="link">
-                    <li>Masters</li>
-                </a>
-                <a href="" class="link">
-                    <li>Nouveautés</li>
-                </a>
-                <a href="" class="link">
-                    <li>Contactez Nous</li>
-                </a>
+           		<li>
+                <a href="" class="link"> Masters</a>
+                </li>
+                <li>
+               		<a href="" class="link">Nouveautés</a>
+                <li>
+                	<a href="" class="link">Contactez Nous</a>
+                </li>
+                <li>
+                	<a href="" class="link">Coordinateur</a>
+                </li>
+                
             </ul>
         </section>
         <section class="nav-r">
@@ -50,12 +53,12 @@
             </a>
             <!-- signup and signin -->
             <ul class="links auth-div">
-                <a href="signin.jsp" class="link">
-                    <li>Sign In</li>
-                </a>
-                <a href="signup.jsp" class="link custom-btn">
-                    <li>Sign Up</li>
-                </a>
+            	<li>
+                <a href="signin.jsp" class="link">Sign In</a>
+                </li>
+                <li>
+                <a href="signup.jsp" class="link custom-btn">Sign Up</a>
+                </li>
             </ul>
         </section>
     </nav>

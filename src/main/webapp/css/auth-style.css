@@ -23,10 +23,10 @@ input{
     }
 }
 #signup-container{
-    background-image: url('/img/icons/cover2.svg') ;
+    background-image: url('../img/icons/cover2.svg') ;
 }
 #signin-container{
-    background-image: url('/img/icons/login-cover.svg') ;
+    background-image: url('../img/icons/login-cover.svg') ;
 }
 
 .wraper{
