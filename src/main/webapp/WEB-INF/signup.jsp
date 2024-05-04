@@ -229,7 +229,7 @@
 				<!-- image input file -->
 				<section class="up-connection">
                     <div class="up-connection-div input-div">
-                        <label for="photo">Veuillez Entrer Votre photo 
+                        <label for="photo">Veuillez Entrer Votre Photo 
                             <input type="file" name="photo" id="photo" class="input" placeholder="">
                             <div class="upload-div input">
                                 <span class="upload-text" id="photo-text"> No file uploaded </span>

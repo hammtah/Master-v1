@@ -33,11 +33,11 @@ public class Etudiant {
 		int noteS5;
 		int noteS6;
 		
-		//constructor 
+		//constructeur 
 	    public Etudiant() {
-	        // Initialize any default values if needed
+
 	    }
-	    
+	    //ce deuxieme constructeur n'a aucun interet, je l'ai mis juste pour des testes
 	    public Etudiant(int id, String nom, String prenom, String dateNaissance, String sexe, String tel, String email, String password, String nationalite, String cin, String massar, String dateBac, String dateGraduation, String datePremiereInscription, Part photo, Part docs, String FilBac, int idFaculte, int idFilLicense, int moyBac, int moyLicense, int noteS1, int noteS2, int noteS3, int noteS4, int noteS5, int noteS6) {
 	        this.id = id;
 	        this.nom = nom;

@@ -138,8 +138,10 @@ public class addUser extends HttpServlet {
 		e.setNoteS6(Integer.parseInt(n_s6));
 		
 		EtudiantDao etd = OraFactory.getUserDao();
-		boolean isAdded = etd.addEtudiant(e);
-		System.out.println("isAdded: " + isAdded);
+		etd.addEtudiant(e);
+		//pour tester si l'etudiant s'est ajouté avec succes vous pevez supprimez les commentaire au dessous
+		//boolean isAdded = etd.addEtudiant(e);
+		//System.out.println("isAdded: " + isAdded);
 
 	}
 
