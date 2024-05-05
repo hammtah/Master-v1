@@ -30,8 +30,12 @@
         <section class="wraper">
             <h1 class="title">Sign Up</h1>
             <form action="addUser" class="" method="post" autocomplete="off" enctype ="multipart/form-data">
-                <!-- error msg -->
+                <!-- error msg frontend-->
                 <div class="error-div hidden"></div>
+				<!-- error msg backend-->
+				<c:if test="${!empty errorMsg }">
+                	<div class="error-div ">${errorMsg }</div>
+                </c:if>
                 <!-- Info personnel -->
                 <section class="form-up form-part-1 current">
 
@@ -132,26 +136,42 @@
                     <section class="up-info">
                         <div class="info">
                             <div class="input-div">
-                                <label for="fac">FacultÃ©</label>
-                                <input type="text" name="fac" id="fac" class="input" placeholder="FacultÃ© des sciences MeknÃ¨s">
+                                <label for="fac">FacultÃ©</label>                            
+                                <%--si en a un erreur dans l'importation des facultes alors la faculte va etre entré manuellement par l'user --%>
+								<c:if test="${empty facultes}">
+                                	<input type="text" name="fac" id="fac" class="input" placeholder="FacultÃ© des sciences MeknÃ¨s">
+                            	</c:if>
+                            	
+                            	<c:if test="${!empty facultes }">
+                            		<select name="fac" id="fac" class="select up-connection-div">
+	                            		<c:forEach items="${facultes}" var="faculte">
+	                            			<option value="${faculte.id_facultes }">${faculte.nom }</option>
+	                           			</c:forEach>
+	                           		</select>
+								</c:if>                            
                             </div>
-                            <div class="input-div">
-                                <label for="date_graduation">Date de Graduation</label>
-                                <input type="date" name="date_graduation" id="date_graduation" class="input" placeholder="12 Feb 2000">
-                            </div>
+
                         </div>
 
                         <div class="info">
                             <div class="input-div">
-                                <label for="date_premiere_inscription">Date PremiÃ¨re Inscription</label>
+                                <label for="date_premiere_inscription">Date 1ere Inscription</label>
                                 <input type="date" name="date_premiere_inscription" id="date_premiere_inscription" class="input" placeholder="12 Feb 2000">
                             </div>
-                            <div class="input-div">
+							<div class="input-div">
+                                <label for="date_graduation">Date de Graduation</label>
+                                <input type="date" name="date_graduation" id="date_graduation" class="input" placeholder="12 Feb 2000">
+                            </div>
+                            
+                        </div>
+                        
+						<div class="info">
+							<div class="input-div">
                                 <label for="date_bac">Date Bac</label>
                                 <input type="date" name="date_bac" id="date_bac" class="input" placeholder="">
                             </div>
-                        </div>
-
+						</div>
+						
                         <div class="info">
                             <div class="input-div">
                                 <label for="fil-bac">FiliÃ¨re Bac</label>

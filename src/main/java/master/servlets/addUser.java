@@ -11,6 +11,7 @@ import master.beans.Etudiant;
 import master.beans.FilieresLicense;
 import master.dao.factory.OraFactory;
 import master.dao.interfaces.EtudiantDao;
+import master.dao.interfaces.FacultesDao;
 import master.dao.interfaces.FilieresLicenseDao;
 
 import java.io.IOException;
@@ -24,6 +25,9 @@ public class addUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//graber tout les filieres de licenses et les forwarder vers la jsp de signup
 		FilieresLicenseDao fld = OraFactory.getFilieresLicenseDao();
+		FacultesDao fad = OraFactory.getFacultesDao();
+		
+		request.setAttribute("facultes", fad.getAllFacultes());
 		request.setAttribute("filieres", fld.getFilieresLicense());
 		/*for(FilieresLicense fl: fld.getFilieresLicense()) {
 			System.out.println("id: "+ fl.getId_filiere());
@@ -158,7 +162,12 @@ public class addUser extends HttpServlet {
 		e.setIdFilLicense(1); e.setIdFaculte(1);
 		
 		EtudiantDao etd = OraFactory.getUserDao();
-		etd.addEtudiant(e);
+		if(!etd.checkEtudiant(e)) {
+			etd.addEtudiant(e);
+		}
+		else {
+			request.setAttribute("errorMsg", "Ce compte existe déja, veuillez verifier votre Cin, Massar et Email");
+		}
 		//pour tester si l'etudiant s'est ajouté avec succes vous pevez supprimez les commentaire au dessous
 		//boolean isAdded = etd.addEtudiant(e);
 		//System.out.println("isAdded: " + isAdded);

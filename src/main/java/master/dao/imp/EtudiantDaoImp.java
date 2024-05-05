@@ -6,8 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import master.beans.Etudiant;
+import master.beans.Facultes;
 import master.dao.factory.OraFactory;
 import master.dao.interfaces.EtudiantDao;
 
@@ -110,4 +113,39 @@ public class EtudiantDaoImp implements EtudiantDao{
 
 	}
 
-}
+	//return true if it's there and false if not
+	public boolean checkEtudiant(Etudiant e) {
+		Connection conn = null;
+		ResultSet rs = null;
+		PreparedStatement pst = null;
+		boolean isThere = false;
+		//connect to DB
+		try {
+			conn = OraFactory.getConnection();
+			conn.setAutoCommit(false);
+		}catch(SQLException sqe) {}
+		
+		//function core
+		try {
+			//Query things
+			pst = conn.prepareStatement("SELECT id_etudiant FROM etudiant where email LIKE ? OR cin LIKE ? OR massar LIKE ?");
+			pst.setString(1, e.getEmail());
+			pst.setString(2, e.getCin());
+			pst.setString(3, e.getMassar());
+			rs = pst.executeQuery();
+			//if any record was found then the etudiant already exist
+			if( rs.next() ) isThere = true;
+
+		}catch(SQLException sqe) {}
+		
+		//close connections
+		try {
+			if(conn != null ) conn.close();
+			if(pst != null ) pst.close();
+		}catch(SQLException sqe) {}
+		
+		return isThere;
+
+	}
+
+	}

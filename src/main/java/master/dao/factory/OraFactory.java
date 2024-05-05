@@ -1,7 +1,9 @@
 package master.dao.factory;
 import master.dao.interfaces.EtudiantDao;
+import master.dao.interfaces.FacultesDao;
 import master.dao.interfaces.FilieresLicenseDao;
 import master.dao.imp.EtudiantDaoImp;
+import master.dao.imp.FacultesDaoImp;
 import master.dao.imp.FilieresLicenseDaoImp;
 
 import java.sql.DriverManager;
@@ -29,4 +31,7 @@ public static FilieresLicenseDao getFilieresLicenseDao() {
 	return new FilieresLicenseDaoImp();
 }
 
+public static FacultesDao getFacultesDao() {
+	return new FacultesDaoImp();
+}
 }
