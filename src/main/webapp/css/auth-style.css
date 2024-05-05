@@ -23,10 +23,10 @@ input{
     }
 }
 #signup-container{
-    background-image: url('/img/icons/cover2.svg') ;
+    background-image: url('../img/icons/cover2.svg') ;
 }
 #signin-container{
-    background-image: url('/img/icons/login-cover.svg') ;
+    background-image: url('../img/icons/login-cover.svg') ;
 }
 
 .wraper{
@@ -95,7 +95,7 @@ label{
     appearance: none; /* Hide default arrow in modern browsers */
     -webkit-appearance: none; /* Hide default arrow in older versions of Safari */
     -moz-appearance: none; /* Hide default arrow in older versions of Firefox */
-    background-image: url('../assets/chevron-down.svg'); /* Add your custom arrow image */
+    background-image: url('../img/icons/chevron-down.svg'); /* Add your custom arrow image */
     background-position: calc(100% - 16px) center; /* Adjust arrow position */
     background-repeat: no-repeat; /* Ensure the arrow is only shown once */
 }
@@ -147,7 +147,7 @@ label{
     gap: 4px;
 }
 .docs-msg::before{
-    content: url('img/icons/alert-circle.svg');
+    content: url('../img/icons/alert-circle.svg');
     display: inline-block;
 }
 

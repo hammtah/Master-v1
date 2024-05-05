@@ -1,6 +1,9 @@
 package master.dao.factory;
 import master.dao.interfaces.EtudiantDao;
+import master.dao.interfaces.FilieresLicenseDao;
 import master.dao.imp.EtudiantDaoImp;
+import master.dao.imp.FilieresLicenseDaoImp;
+
 import java.sql.DriverManager;
 import java.sql.*;
 
@@ -20,6 +23,10 @@ public static Connection getConnection() throws SQLException{
 
 public static EtudiantDao getUserDao() {
 	return new EtudiantDaoImp();
+}
+
+public static FilieresLicenseDao getFilieresLicenseDao() {
+	return new FilieresLicenseDaoImp();
 }
 
 }

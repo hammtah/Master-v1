@@ -5,33 +5,33 @@ import jakarta.servlet.http.Part;
 
 public class Etudiant {
 		int id;
-		String nom;
-		String prenom;
-		String dateNaissance;
-		String sexe;
-		String tel;
-		String email;
-		String password;
-		String nationalite;
-		String cin;
-		String massar;
-		String dateBac;
-		String dateGraduation;
-		String datePremiereInscription;
+		private String nom;
+		private String prenom;
+		private String dateNaissance;
+		private String sexe;
+		private String tel;
+		private String email;
+		private String password;
+		private String nationalite;
+		private String cin;
+		private String massar;
+		private String dateBac;
+		private String dateGraduation;
+		private String datePremiereInscription;
 
-		Part photo;
-		Part docs;
-		String FilBac;
-		int idFaculte;
-		int idFilLicense;
-		int moyBac;
-		int moyLicense;
-		int noteS1;
-		int noteS2;
-		int noteS3;
-		int noteS4;
-		int noteS5;
-		int noteS6;
+		private Part photo;
+		private Part docs;
+		private String FilBac;
+		private int idFaculte;
+		private int idFilLicense;
+		private int moyBac;
+		private int moyLicense;
+		private int noteS1;
+		private int noteS2;
+		private int noteS3;
+		private int noteS4;
+		private int noteS5;
+		private int noteS6;
 		
 		//constructeur 
 	    public Etudiant() {

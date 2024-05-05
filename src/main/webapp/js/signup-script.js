@@ -60,8 +60,6 @@ function checkInputs(i){
 	//to remove the input checking procedure, just comment the body of this function and leave the 'return true'
     const inputs = document.querySelector(`.form-part-${i}`).querySelectorAll("input");
     for(inpt of inputs){
-        console.log(inpt)
-        console.log(inpt.validity.valid)
         if( !inpt.validity.valid || inpt.value.trim().length === 0 ) return false;
     }
     

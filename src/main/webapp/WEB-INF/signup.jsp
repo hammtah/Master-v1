@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="master.beans.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -161,7 +162,19 @@
 						<div class="info">
                             <div class="input-div">
                                 <label for="fil-license">FiliÃ¨re License</label>
-                                <input type="text" name="fil-license" id="fil-license" class="input" placeholder="SMI">
+                                <%--si en a un erreur dans l'importation des filieres alors la filiere va etre entré manuellement par l'user --%>
+								<c:if test="${empty filieres}">
+                                	<input type="text" name="fil-license" id="fil-license" class="input" placeholder="SMI">
+                            	</c:if>
+                            	
+                            	<c:if test="${!empty filieres }">
+                            		<select name="fil-license" id="fil-license" class="select up-connection-div">
+	                            		<c:forEach items="${filieres}" var="filiere">
+	                            			<option value="${filiere.id_filiere }">${filiere.nom }</option>
+	                           			</c:forEach>
+	                           		</select>
+								</c:if>
+                            		
                             </div>
                         </div>
                         
@@ -215,10 +228,10 @@
                             <label for="docs">Veuillez Entrer Vos Documents ( Format pdf < 10MB ) 
                                 <input type="file" name="docs" id="docs" class="input" placeholder="">
                                 <div class="upload-div input">
-                                    <span class="upload-text"> No file uploaded </span>
+                                    <span class="upload-text" id="docs-text"> No file uploaded </span>
                                     <div class="upload-subdiv">
-                                        <span class="upload-file-name"></span>
-                                        <span class="upload-file-size"></span>
+                                        <span class="upload-file-name" id="docs-name"></span>
+                                        <span class="upload-file-size" id="docs-size"></span>
                                     </div>
                                     <img src="img/icons/upload.svg" alt="upload">
                                 </div>

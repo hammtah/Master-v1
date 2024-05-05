@@ -59,9 +59,6 @@ public class EtudiantDaoImp implements EtudiantDao{
 			rs.next();
 			e.setId(rs.getInt(1));
 				
-			//donnant des valeurs temporaires à l'id de faculté et l'id filLisence et l'id de filBac(cette phase est temporaire)
-			e.setIdFilLicense(1); e.setIdFaculte(1);
-				
 			//remplissage des info accademiques
 			pst = null;
 			pst = conn.prepareStatement("INSERT INTO info_accademique_v VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ");

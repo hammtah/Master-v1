@@ -8,8 +8,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import master.beans.Etudiant;
+import master.beans.FilieresLicense;
 import master.dao.factory.OraFactory;
 import master.dao.interfaces.EtudiantDao;
+import master.dao.interfaces.FilieresLicenseDao;
 
 import java.io.IOException;
 import java.util.Scanner;
@@ -20,10 +22,26 @@ public class addUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//graber tout les filieres de licenses et les forwarder vers la jsp de signup
+		FilieresLicenseDao fld = OraFactory.getFilieresLicenseDao();
+		request.setAttribute("filieres", fld.getFilieresLicense());
+		/*for(FilieresLicense fl: fld.getFilieresLicense()) {
+			System.out.println("id: "+ fl.getId_filiere());
+			System.out.println("nom: "+ fl.getNom());
+			System.out.println("Surnom: "+ fl.getSurnom());
+
+		}*/
 		this.getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		
+		
+		
+		
+		
+		
 		String nom = request.getParameter("nom");        
 		String prenom = request.getParameter("prenom");
 		String cin = request.getParameter("cin");
@@ -136,6 +154,8 @@ public class addUser extends HttpServlet {
 		e.setNoteS4(Integer.parseInt(n_s4));
 		e.setNoteS5(Integer.parseInt(n_s5));
 		e.setNoteS6(Integer.parseInt(n_s6));
+		//donnant des valeurs temporaires à l'id de faculté et l'id filLisence et l'id de filBac(cette phase est temporaire)
+		e.setIdFilLicense(1); e.setIdFaculte(1);
 		
 		EtudiantDao etd = OraFactory.getUserDao();
 		etd.addEtudiant(e);
