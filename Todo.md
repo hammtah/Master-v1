@@ -1,21 +1,22 @@
-# Mais ou sont les facultés et les filieres de license ?
+# Mais où sont les facultés et les filières de licence ?
 
-### creer un servlet de signup, dans sa methode get, il va donner les filieres licences et facs vers la jsp 'signup', qui va à son tour generé ces info comme des options dans les inputs, et dans ça methode 'post' elle va appeler la servlete que j'ai déja creer (qui  s'occupe de l'ajoute de l'étudiant à la BD )
+Créez un servlet de signup. Dans sa méthode GET, il va fournir les filières de licences et les facultés à la JSP 'signup', qui à son tour générera ces informations comme des options dans les inputs. Dans sa méthode POST, elle appellera le servlet déjà créé (qui s'occupe de l'ajout de l'étudiant à la BD).
 
-- [x] Generer les filieres de licenses dans la <select> du 'signup.js' 
-- [ ] Generer les facultés 
+- [x] Générer les filières de licences dans la <select> du 'signup.js'
+- [ ] Générer les facultés
 
-# Tu a déja un compte
+# Vous avez déjà un compte
 
-- [ ] ajouter une methode checkUser
+- [ ] Ajouter une méthode checkUser
 
+# Votre photo est un PDF
 
-# Votre photo est un pdf
-
-- [ ] Verifier si les documents entrés sont dans le bon format (coté front et back)
+- [ ] Vérifier si les documents entrés sont dans le bon format (côté front et back)
 
 # C'est du chinois ?
-- [ ] régler les problemes des accents (utf-8)
+
+- [ ] Régler les problèmes d'accents (utf-8)
 
 # Tous contre les hackers
-- [ ] DAO exception handling
+
+- [ ] Gestion des exceptions DAO
