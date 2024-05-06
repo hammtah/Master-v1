@@ -2,6 +2,7 @@ package master.beans;
 import java.sql.Blob;
 
 import jakarta.servlet.http.Part;
+import master.beans.exception.EtudiantBeansException;
 
 public class Etudiant {
 		int id;
@@ -143,15 +144,26 @@ public class Etudiant {
 		public Part getPhoto() {
 			return photo;
 		}
-		public void setPhoto(Part photo) {
-			this.photo = photo;
+		public void setPhoto(Part photo) throws EtudiantBeansException{
+			if( photo.getContentType().equals("image/jpeg") || photo.getContentType().equals("image/png") || photo.getContentType().equals("image/webp")) {
+				this.photo = photo;
+			}
+			else {
+				throw new EtudiantBeansException("Le type de la photo doit être: .jpeg ou .png ou .webp");
+			}
+			
 		}
 		public Part getDocs() {
 			return docs;
 		}
-		public void setDocs(Part file) {
-			this.docs = file;
-		}
+		public void setDocs(Part docs) throws EtudiantBeansException{
+			if( docs.getContentType().equals("application/pdf") ) {
+				this.docs = docs;
+			}
+			else {
+				throw new EtudiantBeansException("Le type du document doit être: .pdf");
+			}
+					}
 		public String getDateBac() {
 			return dateBac;
 		}

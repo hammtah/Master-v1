@@ -1,17 +1,17 @@
 package master.beans;
 
 public class Facultes {
-	private int id_facultes;
+	private int id;
 	private String nom;
 	private String surnom;
 	private String logo;
-	//private Universite uni;
+	private Universite uni;//this should be a bean or an id?
 	
-	public int getId_facultes() {
-		return id_facultes;
+	public int getId() {
+		return id;
 	}
-	public void setId_facultes(int id_facultes) {
-		this.id_facultes = id_facultes;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public String getNom() {
 		return nom;
@@ -30,5 +30,11 @@ public class Facultes {
 	}
 	public void setLogo(String logo) {
 		this.logo = logo;
+	}
+	public Universite getUni() {
+		return uni;
+	}
+	public void setUni(Universite uni) {
+		this.uni = uni;
 	}
 }

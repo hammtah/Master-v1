@@ -11,16 +11,15 @@ import java.util.List;
 
 import master.beans.Etudiant;
 import master.beans.Facultes;
+import master.dao.exception.EtudiantDaoException;
 import master.dao.factory.OraFactory;
 import master.dao.interfaces.EtudiantDao;
 
-public class EtudiantDaoImp implements EtudiantDao{
+public class EtudiantDaoImp implements EtudiantDao {
 	//addEtudiant est une methode responsable à l'ajout d'un etudiant passé en parametre
-	//elle retourne true si le processus de l'ajout de l'étudiant est completé avec succes
-	//et false si elle rencontre des problemes lors de l'insertion 
 	//La démarche se fait en deux partie, la premiere est l'insertion des informations de l'étudiant dans la table 'etudiant_v'
 	//et la deuxieme est l'insertion des info_accadémiques.
-	public boolean addEtudiant(Etudiant e) {
+	public void addEtudiant(Etudiant e) throws EtudiantDaoException {
 		Connection conn = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
@@ -28,7 +27,9 @@ public class EtudiantDaoImp implements EtudiantDao{
 		try {
 			conn = OraFactory.getConnection();
 			conn.setAutoCommit(false);
-		}catch(SQLException sqe) {}
+		}catch(SQLException sqe1) {
+			throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base");
+		}
 		
 		try {
 			//Insertion dans tableau etudiant_v
@@ -47,14 +48,20 @@ public class EtudiantDaoImp implements EtudiantDao{
 			int rowsAffected1 = pst.executeUpdate() ;
 			if(rowsAffected1 < 1) {
 				//annuler la transaction si aucune ligne n'est affectée
-				conn.rollback();
+				try {
+					if(conn != null)  conn.rollback();
+				}catch(SQLException sqe2) {}
+				
 				//fermer la connection
 				try {
 					if(conn != null ) conn.close();
 					if(pst != null ) pst.close();
-				}catch(SQLException sqe) {}
+				}catch(SQLException sqe3) {
+					throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base");
+				}
+				
+				throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base");
 				//sortir de la methode avec un return false qui veut dire que l'etudiant n'est pas ajouté
-				return false;
 			}
 				
 			//recuperant la valeur courante de la sequence (etudiant_seq) qui contient l'id de l'etudiant 
@@ -81,7 +88,7 @@ public class EtudiantDaoImp implements EtudiantDao{
 				pst.setBinaryStream(12, e.getPhoto().getInputStream(), (int)  e.getPhoto().getSize());
 		        pst.setBinaryStream(13, e.getDocs().getInputStream(), (int)  e.getDocs().getSize());
 			}catch(IOException io) {
-				io.printStackTrace();
+				throw new EtudiantDaoException("Un problème est survenu lors de la lecture des fichiers");
 			}
 		    //suite
 		    pst.setInt(14, e.getIdFilLicense());
@@ -91,30 +98,47 @@ public class EtudiantDaoImp implements EtudiantDao{
 			int rowsAffected2 = pst.executeUpdate() ;
 			//si aucune ligne n'est affecté alors faire un rollback puis fermer la connection et sortir de la methode
 			if(rowsAffected2 < 1) {
-				conn.rollback();
+				//annuler la transaction
+				try {
+					if(conn != null)  conn.rollback();
+				}catch(SQLException sqe4) {}
+				
 				try {
 					if(conn != null ) conn.close();
 					if(pst != null ) pst.close();
-				}catch(SQLException sqe) {}
-				return false;
+				}catch(SQLException sqe5) {
+					throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base");					
+				}
+				
+				throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base");
+				
 			}	
 				
 			//si tout est passé correctement alors valider la transaction, fermer la connection et retourner 'true' i.e l'etudiant est ajouté avec succes
-			conn.commit();
+			try {
+				conn.commit();
+			}catch(SQLException sqe6) {
+				throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base");
+			}
 			
-		}catch(SQLException sqe) {}
+		}catch(SQLException sqe7) {
+			throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base");
+		}
 		
-		try {
-			if(conn != null ) conn.close();
-			if(pst != null ) pst.close();
-		}catch(SQLException sqe) {}
-		
-		return true;
+		finally {
+			try {
+				if(conn != null ) conn.close();
+				if(pst != null ) pst.close();
+			}catch(SQLException sqe8) {
+				throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base");
+			}			
+		}
 
+		
 	}
 
 	//return true if it's there and false if not
-	public boolean checkEtudiant(Etudiant e) {
+	public boolean checkEtudiant(Etudiant e) throws EtudiantDaoException{
 		Connection conn = null;
 		ResultSet rs = null;
 		PreparedStatement pst = null;
@@ -123,7 +147,9 @@ public class EtudiantDaoImp implements EtudiantDao{
 		try {
 			conn = OraFactory.getConnection();
 			conn.setAutoCommit(false);
-		}catch(SQLException sqe) {}
+		}catch(SQLException sqe) {
+			throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base");	
+		}
 		
 		//function core
 		try {
@@ -136,14 +162,20 @@ public class EtudiantDaoImp implements EtudiantDao{
 			//if any record was found then the etudiant already exist
 			if( rs.next() ) isThere = true;
 
-		}catch(SQLException sqe) {}
+		}catch(SQLException sqe) {
+			throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base");
+		}
 		
 		//close connections
-		try {
-			if(conn != null ) conn.close();
-			if(pst != null ) pst.close();
-		}catch(SQLException sqe) {}
-		
+		finally {
+			try {
+				if(conn != null ) conn.close();
+				if(pst != null ) pst.close();
+			}catch(SQLException sqe) {
+				throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base");
+			}			
+		}
+
 		return isThere;
 
 	}

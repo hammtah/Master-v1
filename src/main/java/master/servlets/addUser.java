@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import master.beans.Etudiant;
 import master.beans.FilieresLicense;
+import master.beans.exception.EtudiantBeansException;
+import master.dao.exception.EtudiantDaoException;
 import master.dao.factory.OraFactory;
 import master.dao.interfaces.EtudiantDao;
 import master.dao.interfaces.FacultesDao;
@@ -26,26 +28,18 @@ public class addUser extends HttpServlet {
 		//graber tout les filieres de licenses et les forwarder vers la jsp de signup
 		FilieresLicenseDao fld = OraFactory.getFilieresLicenseDao();
 		FacultesDao fad = OraFactory.getFacultesDao();
-		
-		request.setAttribute("facultes", fad.getAllFacultes());
-		request.setAttribute("filieres", fld.getFilieresLicense());
-		/*for(FilieresLicense fl: fld.getFilieresLicense()) {
-			System.out.println("id: "+ fl.getId_filiere());
-			System.out.println("nom: "+ fl.getNom());
-			System.out.println("Surnom: "+ fl.getSurnom());
+		try {
+			request.setAttribute("facultes", fad.getAllFacultes());
+			request.setAttribute("filieres", fld.getFilieresLicense());			
+		}catch(EtudiantDaoException ede) {
+			request.setAttribute("errorMsg", ede.getMessage());
+		}
 
-		}*/
 		this.getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
-		
-		
-		
-		
-		
 		String nom = request.getParameter("nom");        
 		String prenom = request.getParameter("prenom");
 		String cin = request.getParameter("cin");
@@ -56,11 +50,11 @@ public class addUser extends HttpServlet {
 		String nationalite = request.getParameter("nationalite");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
-		//String fac = request.getParameter("fac");
+		String fac = request.getParameter("fac");
 		String date_graduation = request.getParameter("date_graduation");
 		String date_premiere_inscription = request.getParameter("date_premiere_inscription");
 		String date_bac = request.getParameter("date_bac");
-		//String fil_license = request.getParameter("fil-license");
+		String fil_license = request.getParameter("fil-license");
 		String fil_bac = request.getParameter("fil-bac");
 		String moy_bac = request.getParameter("moy-bac");
 		String moy_lic = request.getParameter("moy-lic");
@@ -72,64 +66,11 @@ public class addUser extends HttpServlet {
 		String n_s6 = request.getParameter("n_s6");
 		Part docs = request.getPart("docs");
 		Part photo = request.getPart("photo");
-		// Printing out the values
-		/*
-		System.out.println("Nom: " + nom);
-		System.out.println("Prenom: " + prenom);
-		System.out.println("CIN: " + cin);
-		System.out.println("Telephone: " + telephone);
-		System.out.println("Date de Naissance: " + date_n);
-		System.out.println("Sexe: " + sexe);
-		System.out.println("Massar: " + massar);
-		System.out.println("Nationalite: " + nationalite);
-		System.out.println("Email: " + email);
-		System.out.println("Password: " + password);
-		//System.out.println("Faculté: " + fac);
-		System.out.println("Date de Graduation: " + date_graduation);
-		System.out.println("Date Première Inscription: " + date_premiere_inscription);
-		//System.out.println("Filière License: " + fil_license);
-		System.out.println("Filière Bac: " + fil_bac);
-		System.out.println("Moyenne Bac: " + moy_bac);
-		System.out.println("Moyenne License: " + moy_lic);
-		System.out.println("Note S1: " + n_s1);
-		System.out.println("Note S2: " + n_s2);
-		System.out.println("Note S3: " + n_s3);
-		System.out.println("Note S4: " + n_s4);
-		System.out.println("Note S5: " + n_s5);
-		System.out.println("Note S6: " + n_s6);
-		*/
-		//create another input field for the image 
-		//create Etudiant object containing all this attribute (you can use setters or create a constructor in the bean)
-		/*Etudiant e = new Etudiant(
-			    0, // Assuming id is auto-generated or set later
-			    nom,
-			    prenom,
-			    date_n,
-			    sexe,
-			    telephone,
-			    email,
-			    password,
-			    nationalite,
-			    cin,
-			    massar,
-			    date_bac, 
-			    date_graduation,
-			    docs, // Assuming photo is not provided during object creation
-			    photo, // Assuming docs is not provided during object creation
-			    fil_bac,
-			    1,
-			    1,
-			    Integer.parseInt(moy_bac),
-			    Integer.parseInt(moy_lic),
-			    Integer.parseInt(n_s1),
-			    Integer.parseInt(n_s2),
-			    Integer.parseInt(n_s3),
-			    Integer.parseInt(n_s4),
-			    Integer.parseInt(n_s5),
-			    Integer.parseInt(n_s6)
-			);
-		*/
+		
 		Etudiant e = new Etudiant();
+		//To add: pour le moment les exceptions sont juste pour la photo et le docs
+		//donc penser à les ajouter pour tout ses setters
+		try {
 		e.setId(0); // Assuming id is auto-generated or set later
 		e.setNom(nom);
 		e.setPrenom(prenom);
@@ -145,8 +86,7 @@ public class addUser extends HttpServlet {
 		e.setDateGraduation(date_graduation);
 		e.setDatePremiereInscription(date_premiere_inscription);
 		e.setDocs(docs);
-		e.setPhoto(photo);
-		// Assuming photo and docs are set separately, not during object creation
+		e.setPhoto(photo);		
 		e.setFilBac(fil_bac);
 		e.setIdFaculte(0);
 		e.setIdFilLicense(0);
@@ -158,19 +98,29 @@ public class addUser extends HttpServlet {
 		e.setNoteS4(Integer.parseInt(n_s4));
 		e.setNoteS5(Integer.parseInt(n_s5));
 		e.setNoteS6(Integer.parseInt(n_s6));
-		//donnant des valeurs temporaires à l'id de faculté et l'id filLisence et l'id de filBac(cette phase est temporaire)
-		e.setIdFilLicense(1); e.setIdFaculte(1);
+		e.setIdFilLicense(Integer.parseInt(fil_license)); 
+		e.setIdFaculte(Integer.parseInt(fac));
+
+		}catch(EtudiantBeansException ede) {
+			request.setAttribute("errorMsg", ede.getMessage());
+			this.getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
+		}
 		
 		EtudiantDao etd = OraFactory.getUserDao();
-		if(!etd.checkEtudiant(e)) {
-			etd.addEtudiant(e);
+		//l'ajout de l'étudiant
+		try {
+			if(!etd.checkEtudiant(e)) {
+				etd.addEtudiant(e);
+				//go to home page
+			}
+			else {
+				request.setAttribute("errorMsg", "Ce compte existe déja, veuillez verifier votre Cin, Massar et Email");
+				this.getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
+			}
+		}catch(EtudiantDaoException ede) {
+			request.setAttribute("errorMsg", ede.getMessage());
+			this.getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
 		}
-		else {
-			request.setAttribute("errorMsg", "Ce compte existe déja, veuillez verifier votre Cin, Massar et Email");
-		}
-		//pour tester si l'etudiant s'est ajouté avec succes vous pevez supprimez les commentaire au dessous
-		//boolean isAdded = etd.addEtudiant(e);
-		//System.out.println("isAdded: " + isAdded);
 
 	}
 

@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import master.beans.Facultes;
+import master.dao.exception.EtudiantDaoException;
 import master.dao.factory.OraFactory;
 import master.dao.interfaces.FacultesDao;
 
 public class FacultesDaoImp implements FacultesDao{
-	public List<Facultes> getAllFacultes(){
+	
+	public List<Facultes> getAllFacultes() throws EtudiantDaoException{
 
 		Connection conn = null;
 		ResultSet rs = null;
@@ -23,7 +25,9 @@ public class FacultesDaoImp implements FacultesDao{
 		try {
 			conn = OraFactory.getConnection();
 			conn.setAutoCommit(false);
-		}catch(SQLException sqe) {}
+		}catch(SQLException sqe) {
+			throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base de donné");
+		}
 		
 		//function core
 		try {
@@ -34,7 +38,7 @@ public class FacultesDaoImp implements FacultesDao{
 			//storing data
 			while(rs.next()) {
 				Facultes fa = new Facultes();
-				fa.setId_facultes(rs.getInt(1));
+				fa.setId(rs.getInt(1));
 				fa.setNom(rs.getString(2));
 				fa.setSurnom(rs.getString(3));
 				fa.setLogo(rs.getString(4));
@@ -42,13 +46,19 @@ public class FacultesDaoImp implements FacultesDao{
 				facultes.add(fa);
 			}
 
-		}catch(SQLException sqe) {}
+		}catch(SQLException sqe) {
+			throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base de donné");
+		}
 		
 		//close connections
-		try {
-			if(conn != null ) conn.close();
-			if(st != null ) st.close();
-		}catch(SQLException sqe) {}
+		finally {
+			try {
+				if(conn != null ) conn.close();
+				if(st != null ) st.close();
+			}catch(SQLException sqe) {
+				throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base de donné");
+			}
+		}
 		
 		//return the list 
 		return facultes;

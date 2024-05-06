@@ -12,7 +12,7 @@ Créez un servlet de signup. Dans sa méthode GET, il va fournir les filières d
 
 # Votre photo est un PDF
 
-- [ ] Vérifier si les documents entrés sont dans le bon format (côté front et back)
+- [x] Vérifier si les documents entrés sont dans le bon format (côté front et back)
 
 # C'est du chinois ?
 
@@ -20,4 +20,17 @@ Créez un servlet de signup. Dans sa méthode GET, il va fournir les filières d
 
 # Tous contre les hackers
 
-- [ ] Gestion des exceptions DAO
+	- [x] Gestion des exceptions DAO
+	- [ ] Gestion des exceptions Beans
+		- à plus tard, puisqu'on est dans la phase des test
+
+# Taks mineurs
+- [x] make the fillicense et facs automatiques 
+
+# Next Step
+    1. coder les cartes des masters
+    2. coder la page personel
+    3. designer la page de master 
+
+
+

@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import master.beans.FilieresLicense;
+import master.dao.exception.EtudiantDaoException;
 import master.dao.factory.OraFactory;
 import master.dao.interfaces.FilieresLicenseDao;
 
-public class FilieresLicenseDaoImp implements FilieresLicenseDao{
-	public List<FilieresLicense> getFilieresLicense(){
+public class FilieresLicenseDaoImp implements FilieresLicenseDao {
+	public List<FilieresLicense> getFilieresLicense() throws EtudiantDaoException{
 		Connection conn = null;
 		ResultSet rs = null;
 		Statement st = null;
@@ -23,7 +24,9 @@ public class FilieresLicenseDaoImp implements FilieresLicenseDao{
 		try {
 			conn = OraFactory.getConnection();
 			conn.setAutoCommit(false);
-		}catch(SQLException sqe) {}
+		}catch(SQLException sqe) {
+			throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base de donné");
+		}
 		
 		//function core
 		try {
@@ -40,14 +43,20 @@ public class FilieresLicenseDaoImp implements FilieresLicenseDao{
 				filieres.add(fl);
 			}
 
-		}catch(SQLException sqe) {}
+		}catch(SQLException sqe) {
+			throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base de donné");
+		}
 		
 		//close connections
-		try {
-			if(conn != null ) conn.close();
-			if(st != null ) st.close();
-		}catch(SQLException sqe) {}
-		
+		finally {
+			try {
+				if(conn != null ) conn.close();
+				if(st != null ) st.close();
+			}catch(SQLException sqe) {
+				throw new EtudiantDaoException("Un problème est survenu lors de la connection avec la Base de donné");
+			}	
+		}
+
 		//return the list 
 		return filieres;
 	}
