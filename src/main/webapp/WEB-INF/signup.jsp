@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="master.beans.*" %>
 <!DOCTYPE html>
@@ -34,7 +35,7 @@
                 <div class="error-div hidden"></div>
 				<!-- error msg backend-->
 				<c:if test="${!empty errorMsg }">
-                	<div class="error-div ">${errorMsg }</div>
+                	<div class="error-div "><c:out value="${errorMsg }"></c:out></div>
                 </c:if>
                 <!-- Info personnel -->
                 <section class="form-up form-part-1 current">
@@ -145,7 +146,7 @@
                             	<c:if test="${!empty facultes }">
                             		<select name="fac" id="fac" class="select up-connection-div">
 	                            		<c:forEach items="${facultes}" var="faculte">
-	                            			<option value="${faculte.id_facultes }">${faculte.nom }</option>
+	                            			<option value="${faculte.id }"><c:out value="${faculte.nom }"></c:out></option>
 	                           			</c:forEach>
 	                           		</select>
 								</c:if>                            
@@ -260,23 +261,21 @@
                         </div>
                     </section>
 				<!-- image input file -->
-				<section class="up-connection">
-                    <div class="up-connection-div input-div">
-                        <label for="photo">Veuillez Entrer Votre Photo 
-                            <input type="file" name="photo" id="photo" class="input" placeholder="">
-                            <div class="upload-div input">
-                                <span class="upload-text" id="photo-text"> No file uploaded </span>
-                                <div class="upload-subdiv">
-                                    <span class="upload-file-name" id="photo-name"></span>
-                                    <span class="upload-file-size" id="photo-size"></span>
-                                </div>
-                                <img src="img/icons/upload.svg" alt="upload">
-                            </div>
-                        </label>
-                    </div>
-                </section>
-				
-                
+					<section class="up-connection">
+	                    <div class="up-connection-div input-div">
+	                        <label for="photo">Veuillez Entrer Votre Photo 
+	                            <input type="file" name="photo" id="photo" class="input" placeholder="">
+	                            <div class="upload-div input">
+	                                <span class="upload-text" id="photo-text"> No file uploaded </span>
+	                                <div class="upload-subdiv">
+	                                    <span class="upload-file-name" id="photo-name"></span>
+	                                    <span class="upload-file-size" id="photo-size"></span>
+	                                </div>
+	                                <img src="img/icons/upload.svg" alt="upload">
+	                            </div>
+	                        </label>
+	                    </div>
+	                </section>
                 </section>
                 <!--  -->
                 <!--  -->

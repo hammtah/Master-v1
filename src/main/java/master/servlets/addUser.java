@@ -34,7 +34,7 @@ public class addUser extends HttpServlet {
 		}catch(EtudiantDaoException ede) {
 			request.setAttribute("errorMsg", ede.getMessage());
 		}
-
+		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/signup.jsp").forward(request, response);
 	}
 
